@@ -1,13 +1,17 @@
+### This script selects links and relationship from AS relationship files assumed to be in ASRelData folder
+### Run 'python gettingLinkData.py 20191201 20201001'
+### C Testart
+
 import sys
 import json
 from datetime import date
 from collections import defaultdict
 
 def next_month_date(initial_date):
-    month = initial_date.month
-    year = initial_date.year + month // 12
-    month = month % 12 + 1
-    return date(year, month, initial_date.day)
+	month = initial_date.month
+	year = initial_date.year + month // 12
+	month = month % 12 + 1
+	return date(year, month, initial_date.day)
 
 
 asn_list = ['133416', '134202', '137510', '136749', '139761', '140866', '135017', '111', '10961', '138995', '4847', '42962', '17767', '327776', '328328', '136796', '35145', '55720', '131297', '135026', '42909', '55720', '132825', '133448', '135026', '133771', '139265', '139269', '131651', '139761', '140866' ]
@@ -41,13 +45,17 @@ link_date_rel = defaultdict(list) # for each link the dict returns a list of (da
 
 # Readind AS relationship data
 for da in dates:
-	with open(file_path+da+'.as-rel.txt','r') as of:
-		lines = of.readlines()
-	link_rels = [tuple(line.strip('\n').split('|')) for line in lines if '#' not in line]
-	for link_rel in link_rels:
-		# print link_rel
-		if link_rel[0] in asn_list or link_rel[1] in asn_list:
-			link_date_rel[(link_rel[0]+'|'+link_rel[1])].append((da,link_rel[2]))
+	try:
+		with open(file_path+da+'.as-rel.txt','r') as of:
+			lines = of.readlines()
+	except IOError as ioe:
+		print 'No data for '+da
+	else:
+		link_rels = [tuple(line.strip('\n').split('|')) for line in lines if '#' not in line]
+		for link_rel in link_rels:
+			# print link_rel
+			if link_rel[0] in asn_list or link_rel[1] in asn_list:
+				link_date_rel[(link_rel[0]+'|'+link_rel[1])].append((da,link_rel[2]))
 
 #Writing output file (dumping defaultdict as string of json object)
 print len(link_date_rel)
