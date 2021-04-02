@@ -3,6 +3,6 @@
 
 import json
 
-with open('20191201_20201001.link-date-rel', 'r') as jsonfile:
+with open('20171201_20201001.link-date-rel', 'r') as jsonfile:
 	data = json.load(jsonfile)
 print len(data)
