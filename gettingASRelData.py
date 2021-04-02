@@ -1,5 +1,6 @@
 ### This script downloades AS relationship data from CAIDA. 
 ### You need to sign the Acceptable Use Agreement (https://www.caida.org/data/as-relationships/) to use it.
+### Run 'python gettingASRelData.py 20191201 20201001'
 ### C Testart
 
 import sys
