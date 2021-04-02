@@ -29,8 +29,8 @@ end = date(year=int(end_date[:4]), month = int(end_date[4:6]), day = int(end_dat
 
 
 while(d<=end):
-	d = next_month_date(d)
 	str_y, str_m, str_d = str(d).split('-')
 	link = "https://publicdata.caida.org/datasets/as-relationships/serial-1/"+str_y+str_m+"01.as-rel.txt.bz2"
 	print link
 	subprocess.call(["wget", link])
+	d = next_month_date(d)
