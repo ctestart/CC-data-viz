@@ -14,11 +14,12 @@ def next_month_date(initial_date):
 	return date(year, month, initial_date.day)
 
 
-asn_list = ['133416', '134202', '137510', '136749', '139761', '140866', '135017', '111', '10961', '138995', '4847', '42962', '17767', '327776', '328328', '136796', '35145', '55720', '131297', '135026', '42909', '55720', '132825', '133448', '135026', '133771', '139265', '139269', '131651', '139761', '140866' ]
+# asn_list = ['133416', '134202', '137510', '136749', '139761', '140866', '135017', '111', '10961', '138995', '4847', '42962', '17767', '327776', '328328', '136796', '35145', '55720', '131297', '135026', '42909', '55720', '132825', '133448', '135026', '133771', '139265', '139269', '131651', '139761', '140866' ]
+# print len(asn_list)
 
 
-start_date = '20190901'
-end_date = '20200901'
+start_date = '20171201' #'20190901'
+end_date = '20201001'
 if len(sys.argv) >2:
 	start_date = sys.argv[1]
 	end_date = sys.argv[2]
@@ -54,12 +55,12 @@ for da in dates:
 		link_rels = [tuple(line.strip('\n').split('|')) for line in lines if '#' not in line]
 		for link_rel in link_rels:
 			# print link_rel
-			if link_rel[0] in asn_list or link_rel[1] in asn_list:
-				link_date_rel[(link_rel[0]+'|'+link_rel[1])].append((da,link_rel[2]))
+			# if link_rel[0] in asn_list or link_rel[1] in asn_list:
+			link_date_rel[(link_rel[0]+'|'+link_rel[1])].append((da,link_rel[2]))
 
 #Writing output file (dumping defaultdict as string of json object)
 print len(link_date_rel)
-outfile_name = start_date+'_'+end_date+'.link-date-rel'
+outfile_name = start_date+'_'+end_date+'_allASNs.link-date-rel'
 with open(outfile_name,'w') as fout:
 	json.dump(link_date_rel, fout, sort_keys=True)
 
